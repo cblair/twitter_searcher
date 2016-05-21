@@ -2,7 +2,8 @@
 A simple RoR application for searching Twitter.
 
 # Install
-TODO
+* bundle
+* TODO - don't think we need this, but check - rails g foundation:install
 
 # APIs
 TODO
