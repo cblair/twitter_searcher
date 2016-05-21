@@ -4,6 +4,8 @@ A simple RoR application for searching Twitter.
 # Install
 * bundle
 * TODO - don't think we need this, but check - rails g foundation:install
+* rake db:create
+* rake db:migrate
 
 # APIs
 TODO
@@ -27,3 +29,7 @@ This leads us to a few design considerations/decisions:
 loose performance but gain simplicity with the twitter_searcher_microservice.
 For production code, ruby profilers should be used to then latter identify if
 this area should be optimized with a better database.
+
+# Rails issues
+* `rails g model <...> hangs`
+** Stop spring: `spring stop`

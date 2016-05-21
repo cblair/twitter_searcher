@@ -71,6 +71,8 @@ class TweetsController < ApplicationController
 
     twitter_client = get_twitter_client
     
+    # TODO - cache, twitter API limits: 15 calls every 15 minutes,
+    # and 180 calls every 15 minutes.
     @tweets = twitter_client.search(query, result_type: "recent").take(10)
 
     respond_to do |format|
