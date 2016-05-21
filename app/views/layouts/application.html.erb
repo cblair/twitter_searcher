@@ -26,18 +26,19 @@
       <section class="top-bar-section">
         <ul class="right">
           <li class="divider"></li>
-          <li><%= link_to "Browse Products", "/" %></li>
+          <li><%= link_to "Browse Tweets", "/" %></li>
           <li class="divider"></li>
-          <li><%= link_to "Price List" %></li>
-          <li class="divider"></li>
-          <li><%= link_to "Contact Us" %></li>
-          <li class="divider"></li>
-          <li><%= link_to "Cart" %></li>
+          <li><%= link_to "About" %></li>
         </ul>
       </div>
     </nav>
 
-    <%= yield %>
+    <div class="row">
+        <div class="large-8 columns">
+        <%= yield %>
+        </div>
+    </div>
+
     <%= javascript_include_tag "application" %>
   </body>
 </html>
