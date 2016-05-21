@@ -66,18 +66,43 @@ class TweetsController < ApplicationController
   # GET /tweets/search
   # GET /tweets/search.json
   def search
-    # TODO - document
-    query = "healthcare"
+    default_query = "healthcare"
+    query = default_query
 
+    # TODO - document
+    if params and params[:search] and params[:search][:value] and params[:search][:value] != ""
+      query = params[:search][:value]
+    end
+    puts "query: #{query}"
+
+    # Get out twitter client for querying.
     twitter_client = get_twitter_client
     
     # TODO - cache, twitter API limits: 15 calls every 15 minutes,
     # and 180 calls every 15 minutes.
-    @tweets = twitter_client.search(query, result_type: "recent").take(10)
+    #@tweets = twitter_client.search(query, result_type: "recent").take(10)
+    tweets = twitter_client.search(query, result_type: "recent").take(10).map do |tweet|
+      [
+        # screen name
+        tweet.user.screen_name,
+        # body
+        tweet.text
+      ]
+    end
+
+    # The datatables draw count. Cast to int to prevent cross site scripting.
+    draw = params[:draw] ? params[:draw].to_i : 1
+
+    @tweet_data = {
+      draw: draw,
+      recordsTotal: 10,
+      recordsFiltered: 10,
+      data: tweets
+    }
 
     respond_to do |format|
       format.html { render :search }
-      format.json { render json: {} }
+      format.json { render json: @tweet_data }
     end
   end
 

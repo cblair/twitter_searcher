@@ -21,4 +21,19 @@
 $(function(){ $(document).foundation(); });
 
 // DataTables
-$('.datatable').DataTable({});
+// We allow views to set this request URL.
+var requestURL = $('.datatable').data('request-url') || '/';
+console.log('datatables searching against URL: ' + requestURL);
+
+var dataTable = $('.datatable').DataTable({
+    // Do our data retrieval against our Server APIs, not in the client.
+    serverSide: true,
+    ajax: {
+        // Hard setting for now, but we could make it configurable like 
+        // requestURL if needed in the future.
+        type: 'GET',
+        url: requestURL
+    },
+    // Don't all for column ordering. Also can make configurable when needed.
+    "ordering": false
+});

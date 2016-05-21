@@ -2,7 +2,11 @@
 
 <h1>Search Twitter</h1>
 
-<table id="table_id" class="display datatable">
+<a href="#" id="healthcare" class="button">healthcare</a>
+<a href="#" id="nasa" class="button success">nasa</a>
+<a href="#" id="open-source" class="button info">open source</a>
+
+<table id="table_id" class="display datatable" data-request-url="/tweets/search">
   <thead>
     <tr>
       <th>Screen Name</th>
@@ -11,12 +15,6 @@
   </thead>
 
   <tbody>
-    <% @tweets.collect do |tweet| %>
-      <tr>
-        <td><%= "#{tweet.user.screen_name}" %></td>
-        <td><%= "#{tweet.text}" %></td>
-      </tr>
-    <% end %>
   </tbody>
 </table>
 
