@@ -49,7 +49,7 @@ a column in the tweet data:
 
 #Design methods and considerations
 This RoR app uses the idea of
-[microservices](http://martinfowler.com/articles/microservices.html). Make a
+[microservices](http://martinfowler.com/articles/microservices.html). Making a
 pure microservice was new for me in RoR, although I've made RoR modular
 components before. The idea for microservices is great, so the process will be:
 
@@ -62,5 +62,5 @@ This should help manage coupling and satisfy the micoservice concept.
 
 
 # Rails issues
-* `rails g model <...> hangs`
+* `rails g model <...>` hangs.
  * Stop spring: `spring stop`
