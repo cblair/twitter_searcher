@@ -56,3 +56,5 @@ gem 'foundation-rails', '5.2.2.0'
 #Social media stuff.
 gem 'twitter', '5.8.0'
 gem 'jquery-datatables-rails'
+
+gem "font-awesome-rails"
