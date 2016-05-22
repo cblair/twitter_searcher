@@ -105,7 +105,7 @@ class TweetsController < ApplicationController
     if !get_new_tweets
       tweets = Tweet.where(:category => category).last(10).map do |tweet|
         [
-          "TODO - need screen name",
+          tweet.name,
           tweet.body
         ]
       end
@@ -117,7 +117,8 @@ class TweetsController < ApplicationController
       #Get new tweets and save the in our database cache.
       tweets = twitter_client.search(query, result_type: "recent").take(10).map do |tweet|
         # Save these tweets for our cache.
-        tweet_record = Tweet.new(:body => tweet.text, :category => category)
+        tweet_record = Tweet.new(:name => tweet.user.screen_name,
+          :body => tweet.text, :category => category)
         tweet_record.save
 
         # Format for each item in our Tweets list.

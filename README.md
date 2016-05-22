@@ -30,9 +30,19 @@ searchable. The currently supported search terms are:
     * "nasa"
     * "open source"
 
-TODO - return data
+The data that is returned is a list of tweets, with each element in the list
+a column in the tweet data:
 
-#Design methods and conciderations
+    {
+        "data": [
+            [
+                "screen name",
+                "tweet text/body"
+            ]
+        ]
+    }
+
+#Design methods and considerations
 This RoR app uses the idea of
 [microservices](http://martinfowler.com/articles/microservices.html). Make a
 pure microservice was new for me in RoR, although I've made RoR modular
