@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/tweets/search', to: 'tweets#search'
+  get '/tweets/search', to: 'tweets#search', as: 'tweet_search'
   post '/tweets/search.json', to: 'tweets#search'
   resources :tweets
 

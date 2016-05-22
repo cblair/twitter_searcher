@@ -1,11 +1,16 @@
 # twitter_searcher
-A simple RoR application for searching Twitter.
+A simple RoR application for searching Twitter. As see hosted on
+(https://colbys-twitter-searcher.herokuapp.com/tweets/search)[https://colbys-twitter-searcher.herokuapp.com/tweets/search].
 
 # Install
 * bundle
 * rake db:create
 * rake db:migrate
 
+## On Heroku
+For Heroku, you'll also have to the usual stuff:
+
+* heroku run rake db:migrate
 
 # Services (aka microservices)
 The Tweets page (/tweets/index) shows all saved tweets. The Tweets Search page
