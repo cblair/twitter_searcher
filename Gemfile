@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-# ruby "2.1.7"
+# ruby '2.2.4'
+ruby "2.1.7"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 # gem 'rails', '4.0.2'
@@ -55,4 +56,8 @@ gem 'foundation-rails', '5.2.2.0'
 # TODO - move to twitter_searcher_microservice
 #Social media stuff.
 gem 'twitter', '5.8.0'
+
 gem 'jquery-datatables-rails'
+
+# Heroku
+gem 'rails_12factor', group: :production
