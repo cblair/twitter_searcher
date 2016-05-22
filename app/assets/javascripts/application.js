@@ -31,7 +31,7 @@ var dataTable = $('.datatable').DataTable({
     ajax: {
         // Hard setting for now, but we could make it configurable like 
         // requestURL if needed in the future.
-        type: 'GET',
+        type: 'POST',
         url: requestURL
     },
     // Don't all for column ordering. Also can make configurable when needed.

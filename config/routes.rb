@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get '/tweets/search', to: 'tweets#search'
+  post '/tweets/search.json', to: 'tweets#search'
   resources :tweets
 
   # The priority is based upon order of creation: first created -> highest priority.

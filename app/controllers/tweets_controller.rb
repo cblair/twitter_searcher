@@ -64,37 +64,78 @@ class TweetsController < ApplicationController
   end
 
   # GET /tweets/search
-  # GET /tweets/search.json
+  # POST /tweets/search.json
   def search
-    default_query = "healthcare"
-    query = default_query
+    query = nil
 
-    # TODO - document
+    # See our API - Search documentation for these requirements
     if params and params[:search] and params[:search][:value] and params[:search][:value] != ""
-      query = params[:search][:value]
+      if ["healthcare", "nasa", "open source"].include? params[:search][:value]
+        query = params[:search][:value]
+      end
     end
     puts "query: #{query}"
 
-    # Get out twitter client for querying.
-    twitter_client = get_twitter_client
-    
-    # TODO - cache, twitter API limits: 15 calls every 15 minutes,
+    # Cache. Twitter API limits: 15 calls every 15 minutes,
     # and 180 calls every 15 minutes.
-    #@tweets = twitter_client.search(query, result_type: "recent").take(10)
-    tweets = twitter_client.search(query, result_type: "recent").take(10).map do |tweet|
-      [
-        # screen name
-        tweet.user.screen_name,
-        # body
-        tweet.text
-      ]
+    if query == nil
+      puts "Can't get new tweets because we have no query."
+      get_new_tweets = false
+    elsif Tweet.all.empty?
+      puts 'Geting new tweets because we have none...'
+      get_new_tweets = true
+    else
+      # Time in seconds to keep the tweets before we hit twitter again.
+      cache_time = 60
+      expire_time = (Tweet.order("created_at").first.created_at + cache_time)
+      cached_time_expired = expire_time < Time.now.utc
+      puts "Cached tweets expired? expire time < now?: #{expire_time.to_s} < #{Time.now.utc.to_s}? - #{cached_time_expired.to_s}"
+      get_new_tweets = cached_time_expired
     end
 
-    # The datatables draw count. Cast to int to prevent cross site scripting.
-    draw = params[:draw] ? params[:draw].to_i : 1
+    # Get Tweets!
+    # If the query was invalid, don't even bother hitting twitter. We will 
+    # either get what we have in the cache, or get an empty data set.
+    if !get_new_tweets
+      tweets = Tweet.last(10).map do |tweet|
+        [
+          "TODO - need screen name",
+          tweet.body
+        ]
+      end
+    # Else, we need fresh tweets.
+    else
+      # Get our twitter client for querying.
+      twitter_client = get_twitter_client
+      
+      #Get new tweets and save the in our database cache.
+      tweets = twitter_client.search(query, result_type: "recent").take(10).map do |tweet|
+        # Save these tweets for our cache.
+        tweet_record = Tweet.new(:body => tweet.text)
+        tweet_record.save
 
+        # Format for each item in our Tweets list.
+        [
+          # screen name
+          tweet.user.screen_name,
+          # body
+          tweet.text
+        ]
+      end
+    end
+
+    # Cache Cleanup
+    # Delete all but the last 10 to limit size
+    if Tweet.all.size > 10
+      puts 'Cleaning up old tweets...'
+      Tweet.order('id desc').offset(10).destroy_all
+    end
+
+    # Tweet Data (see API - Search Data). There are extra things in here too
+    # for datatables.
     @tweet_data = {
-      draw: draw,
+      # The datatables draw count. Cast to int to prevent cross site scripting.
+      draw: params[:draw] ? params[:draw].to_i : 1,
       recordsTotal: 10,
       recordsFiltered: 10,
       data: tweets
