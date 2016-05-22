@@ -18,9 +18,11 @@ The Tweets page (/tweets/index) shows all saved tweets. The Tweets Search page
 
 
 # APIs
-## Tweet Search
-Search is done via a GET with application/json to /tweets/search. The JSON
-request is of the following format:
+## /tweets/search
+* method - POST
+* Content-Type - application/json
+
+The JSON request is of the following format:
 
     {
         "search" : {
@@ -35,7 +37,7 @@ searchable. The currently supported search terms are:
     * "nasa"
     * "open source"
 
-The data that is returned is a list of tweets, with each element in the list
+The JSON data in the response is a list of tweets, with each element in the list
 a column in the tweet data:
 
     {
