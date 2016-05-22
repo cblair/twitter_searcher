@@ -1,6 +1,6 @@
 # twitter_searcher
 A simple RoR application for searching Twitter. As see hosted on
-(https://colbys-twitter-searcher.herokuapp.com/tweets/search)[https://colbys-twitter-searcher.herokuapp.com/tweets/search].
+[https://colbys-twitter-searcher.herokuapp.com/tweets/search](https://colbys-twitter-searcher.herokuapp.com/tweets/search).
 
 # Install
 * bundle
@@ -63,4 +63,4 @@ This should help manage coupling and satisfy the micoservice concept.
 
 # Rails issues
 * `rails g model <...> hangs`
-** Stop spring: `spring stop`
+ * Stop spring: `spring stop`
