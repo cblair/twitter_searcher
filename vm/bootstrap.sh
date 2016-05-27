@@ -57,3 +57,5 @@ bundle
 rake db:create
 rake db:migrate
 
+echo 'Start this rails app with the following to bind to any address (needed for vagrant):'
+echo 'rails s -b 0.0.0.0'
