@@ -44,3 +44,16 @@ sudo npm install -g npm # Run it twice for good measure
 su - vagrant -c "cd /vagrant && npm install" # Expects to find an already initialized package.json in the directory
 
 # NOTE: You will need to bundle install and rake db:setup after everything above finishes
+
+# Install postgresql for our rails app.
+sudo apt-get install postgresql postgresql-contrib libpq-dev
+sudo -u postgres createuser -s vagrant
+
+# Clone the twitter_searcher.
+mkdir ~/src/
+cd ~/src
+https://github.com/cblair/twitter_searcher.git
+bundle
+rake db:create
+rake db:migrate
+
